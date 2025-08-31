@@ -1,0 +1,19 @@
+<svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="waterGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4A90E2;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#2E8B57;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Goccia d'acqua semplificata per favicon -->
+  <path d="M32 8 C18 20, 18 36, 32 48 C46 36, 46 20, 32 8 Z" 
+        fill="url(#waterGrad)"/>
+  
+  <!-- Foglia semplificata -->
+  <path d="M32 18 C36 16, 42 20, 44 26 C42 32, 36 30, 32 28 Z" 
+        fill="#90EE90"/>
+  
+  <!-- Punto di crescita -->
+  <circle cx="26" cy="32" r="2" fill="#4A90E2" opacity="0.8"/>
+</svg>

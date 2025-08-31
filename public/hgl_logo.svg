@@ -1,0 +1,73 @@
+<svg viewBox="0 0 400 120" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="waterGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4A90E2;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#2E8B57;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="leafGradient1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#90EE90;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#2E8B57;stop-opacity:0.9" />
+      <stop offset="100%" style="stop-color:#228B22;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="leafGradient2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#98FB98;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#32CD32;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- LOGO HEADER DESKTOP -->
+  <g id="logo-main">
+    <!-- Simbolo -->
+    <g transform="translate(20, 20)">
+      <!-- Goccia d'acqua -->
+      <path d="M40 15 C20 35, 20 55, 40 65 C60 55, 60 35, 40 15 Z" 
+            fill="url(#waterGradient)" 
+            opacity="0.9"/>
+      
+      <!-- Foglia principale -->
+      <path d="M40 30 C48 28, 58 32, 62 42 C64 50, 58 56, 50 58 C45 55, 42 45, 40 30 Z" 
+            fill="url(#leafGradient1)"/>
+      
+      <!-- Nervatura centrale -->
+      <line x1="40" y1="30" x2="55" y2="50" 
+            stroke="#228B22" 
+            stroke-width="1.5" 
+            opacity="0.7"/>
+      
+      <!-- Foglie secondarie -->
+      <ellipse cx="32" cy="48" rx="6" ry="8" 
+               fill="url(#leafGradient2)" 
+               opacity="0.7" 
+               transform="rotate(-15 32 48)"/>
+      
+      <ellipse cx="48" cy="62" rx="4" ry="6" 
+               fill="#90EE90" 
+               opacity="0.6" 
+               transform="rotate(20 48 62)"/>
+      
+      <!-- Elementi tech -->
+      <circle cx="22" cy="58" r="2" fill="#4A90E2" opacity="0.5"/>
+      <circle cx="58" cy="62" r="2" fill="#4A90E2" opacity="0.5"/>
+      <circle cx="26" cy="52" r="1" fill="#90EE90" opacity="0.7"/>
+    </g>
+    
+    <!-- Testo -->
+    <text x="100" y="55" 
+          font-family="Source Sans Pro, system-ui, sans-serif" 
+          font-size="32" 
+          font-weight="400" 
+          fill="#2C3E50">
+      Hydro<tspan fill="#2E8B57" font-weight="600">Greens</tspan><tspan fill="#4A90E2" font-weight="600">Lab</tspan>
+    </text>
+    
+    <!-- Sottotitolo -->
+    <text x="100" y="75" 
+          font-family="Source Sans Pro, system-ui, sans-serif" 
+          font-size="12" 
+          font-weight="300" 
+          fill="#2E8B57" 
+          opacity="0.8">
+      Coltivazione Idroponica Innovativa
+    </text>
+  </g>
+</svg>

@@ -3,6 +3,13 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --primary-green: #2a6b3c;
+  --secondary-green: #4a9d5e;
+  --accent-blue: #3b82f6;
+  --light-beige: #f8f6f2;
+  --dark-green: #1e4a2d;
+  --light-green: #e6f4ea;
+  --medium-green: #81c784;
 }
 
 @theme inline {
@@ -23,4 +30,131 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-[var(--primary-green)] hover:bg-[var(--secondary-green)] text-white font-medium py-2 px-6 rounded-lg transition-colors duration-300;
+  }
+  
+  .btn-secondary {
+    @apply bg-transparent border-2 border-[var(--primary-green)] text-[var(--primary-green)] hover:bg-[var(--primary-green)] hover:text-white font-medium py-2 px-6 rounded-lg transition-colors duration-300;
+  }
+  
+  .card-hover {
+    @apply transition-transform duration-300 hover:-translate-y-1;
+  }
+  
+  .section-padding {
+    @apply px-4 sm:px-6 lg:px-8 py-12 lg:py-24;
+  }
+  
+  .container-custom {
+    @apply max-w-7xl mx-auto;
+  }
+
+  .text-gradient {
+    @apply bg-gradient-to-r from-[var(--primary-green)] to-[var(--accent-blue)] bg-clip-text text-transparent;
+  }
+}
+
+/* Animazioni personalizzate */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.8s ease-out forwards;
+}
+
+/* Effetto parallax */
+.parallax-container {
+  perspective: 1px;
+  height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.parallax-layer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.parallax-back {
+  transform: translateZ(-1px) scale(2);
+}
+
+.parallax-base {
+  transform: translateZ(0);
+}
+
+.parallax-fore {
+  transform: translateZ(1px) scale(0.5);
+}
+
+/* Stile per la scrollbar personalizzata */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary-green);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--secondary-green);
+}
+
+/* Effetto glassmorfismo */
+.glass-effect {
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+/* Effetto shine sulle card */
+.card-shine {
+  position: relative;
+  overflow: hidden;
+}
+
+.card-shine::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    to bottom right,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.3) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: rotate(30deg);
+  transition: all 0.6s ease;
+  opacity: 0;
+}
+
+.card-shine:hover::before {
+  opacity: 1;
+  animation: shine 1.5s forwards;
+}
+
+@keyframes shine {
+  0% {
+    left: -50%;
+  }
+  100% {
+    left: 150%;
+  }
 }
