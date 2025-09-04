@@ -3,14 +3,32 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
-  --primary-green: #2a6b3c;
-  --secondary-green: #4a9d5e;
-  --accent-blue: #3b82f6;
+  --primary-green: #2E8B57;      /* Verde del logo */
+  --secondary-green: #228B22;    /* Verde scuro del logo */
+  --accent-blue: #4A90E2;        /* Blu del logo */
   --light-beige: #f8f6f2;
   --dark-green: #1e4a2d;
   --light-green: #e6f4ea;
   --medium-green: #81c784;
+  --logo-light-green: #90EE90;   /* Verde chiaro del logo */
+  --logo-lighter-green: #98FB98; /* Verde più chiaro del logo */
+  --hgl-green:#2D6A4F;
+  --hgl-dark:#1B4332;
+  --hgl-light:#95D5B2;
+  --hgl-accent:#FFD166;
+  --hgl-neutral:#F6F6F6;
 }
+
+/* Tipografia di base (opzionale) */
+html { scroll-behavior: smooth; }
+
+
+/* Helper per focus visibile */
+.focus-ring { @apply focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-emerald-600; }
+
+
+/* Soft shadow riutilizzabile */
+.shadow-soft { box-shadow: 0 6px 24px rgba(0,0,0,.06); }
 
 @theme inline {
   --color-background: var(--background);

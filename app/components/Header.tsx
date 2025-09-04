@@ -1,115 +1,163 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, ShoppingCart, User } from "lucide-react";
+import { Menu, X, ShoppingCart } from "lucide-react";
+import Image from "next/image";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  const navLinks = [
+    { label: "Home", emoji: "🏡" },
+    { label: "Tecnologia", emoji: "💧" },
+    { label: "Prodotti", emoji: "🌱" },
+    { label: "Missione", emoji: "🚀" },
+    { label: "Contatti", emoji: "✉️" },
+  ];
+
+  useEffect(() => {
+    const handleScroll = () => setIsScrolled(window.scrollY > 30);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
-    <motion.header 
-      initial={{ y: -100 }}
+    <motion.header
+      initial={{ y: -80 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
-      className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100/80"
+      className={`sticky top-0 z-50 transition-all duration-300 ${
+        isScrolled
+          ? "bg-white/80 backdrop-blur-lg border-b border-gray-200 shadow-md py-2"
+          : "bg-white/70 backdrop-blur-md border-b border-gray-100 py-4"
+      }`}
     >
-      <div className="container-custom">
-        <div className="flex justify-between items-center py-5">
-          {/* Logo Minimal */}
-          <Link href="/" className="flex items-center">
-            <motion.div 
-              className="w-10 h-10 bg-gradient-to-br from-[var(--primary-green)] to-[var(--accent-blue)] rounded-lg flex items-center justify-center shadow-sm"
-              whileHover={{ scale: 1.05, rotate: 2 }}
-              transition={{ duration: 0.2 }}
-            >
-              <svg viewBox="0 0 64 64" className="w-6 h-6 text-white">
-                <path d="M32 8 C18 20, 18 36, 32 48 C46 36, 46 20, 32 8 Z" fill="currentColor"/>
-                <path d="M32 18 C36 16, 42 20, 44 26 C42 32, 36 30, 32 28 Z" fill="#A7F3D0"/>
-              </svg>
-            </motion.div>
-          </Link>
-
-          {/* Desktop Navigation - Minimal */}
-          <nav className="hidden md:flex items-center space-x-8">
-            {['Home', 'Tecnologia', 'Prodotti', 'Missione', 'Contatti'].map((item, index) => (
-              <motion.div
-                key={item}
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-              >
-                <Link 
-                  href={`/${item === 'Home' ? '' : item.toLowerCase()}`}
-                  className="text-gray-600 hover:text-[var(--primary-green)] transition-colors text-sm font-light relative group"
-                >
-                  {item}
-                  <span className="absolute -bottom-1 left-0 w-0 h-px bg-[var(--primary-green)] transition-all group-hover:w-full"></span>
-                </Link>
-              </motion.div>
-            ))}
-          </nav>
-
-          {/* Cart and Auth - Minimal */}
-          <div className="hidden md:flex items-center space-x-3">
-            <motion.button 
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="p-2 text-gray-600 hover:text-[var(--primary-green)] transition-colors relative"
-            >
-              <ShoppingCart size={18} />
-            </motion.button>
-            <motion.button 
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="text-sm text-[var(--primary-green)] hover:text-[var(--dark-green)] transition-colors px-3 py-1 rounded-lg border border-[var(--primary-green)]/30 hover:border-[var(--primary-green)]"
-            >
-              Accedi
-            </motion.button>
-          </div>
-
-          {/* Mobile menu button */}
-          <motion.button 
-            whileTap={{ scale: 0.95 }}
-            className="md:hidden p-2 text-gray-600"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
+      <div className="container-custom flex justify-between items-center">
+        {/* Logo */}
+        <Link href="/" className="flex items-center">
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            className="h-12 w-auto relative group"
           >
-            {isMenuOpen ? <X size={22} /> : <Menu size={22} />}
+            <Image
+            src="/hgl_logo.svg"
+            alt="HydroGreensLab"
+            width={160}
+            height={50}
+            className="w-[220px] h-auto"   // <— forzato da Tailwind
+            priority
+            />
+{/* Shine effect */}
+            <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent -skew-x-12 translate-x-[-120%] group-hover:translate-x-[200%] transition-transform duration-700" />
+          </motion.div>
+        </Link>
+
+        {/* Desktop Nav */}
+        <nav className="hidden md:flex items-center space-x-10">
+          {navLinks.map((item, index) => (
+            <motion.div
+              key={item.label}
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.08 }}
+              className="relative"
+            >
+              <Link
+                href={`/${item.label === "Home" ? "" : item.label.toLowerCase()}`}
+                className="text-gray-700 hover:text-[var(--primary-green)] text-[15px] font-medium relative group tracking-wide"
+              >
+                {item.label}
+                <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-[var(--primary-green)] transition-all group-hover:w-full"></span>
+              </Link>
+              {/* Emoji hover */}
+              <motion.span
+                initial={{ opacity: 0, y: 5 }}
+                whileHover={{ opacity: 1, y: 0 }}
+                className="absolute -top-7 left-1/2 -translate-x-1/2 text-lg"
+              >
+                {item.emoji}
+              </motion.span>
+            </motion.div>
+          ))}
+        </nav>
+
+        {/* Actions */}
+        <div className="hidden md:flex items-center space-x-5">
+          <motion.button
+            whileHover={{ scale: 1.08 }}
+            whileTap={{ scale: 0.95 }}
+            aria-label="Carrello"
+            className="p-2 text-gray-600 hover:text-[var(--primary-green)] relative"
+          >
+            <ShoppingCart size={22} />
+            <motion.span
+              key="cart-badge"
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ type: "spring", stiffness: 300 }}
+              className="absolute -top-1.5 -right-1.5 bg-[var(--primary-green)] text-white text-xs w-5 h-5 rounded-full flex items-center justify-center shadow-md"
+            >
+              2
+            </motion.span>
+          </motion.button>
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="text-sm text-white bg-[var(--primary-green)] hover:bg-[var(--dark-green)] transition-colors px-5 py-2 rounded-lg shadow-md font-medium"
+          >
+            Accedi
           </motion.button>
         </div>
 
-        {/* Mobile Navigation - Minimal */}
-        <AnimatePresence>
-          {isMenuOpen && (
-            <motion.div 
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
-              className="md:hidden overflow-hidden bg-white/95 backdrop-blur-sm rounded-lg mt-2 border border-gray-100"
-            >
-              <nav className="py-4 space-y-1">
-                {['Home', 'Tecnologia', 'Prodotti', 'Missione', 'Contatti'].map((item) => (
-                  <motion.div
-                    key={item}
-                    initial={{ opacity: 0, x: -10 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <Link 
-                      href={`/${item === 'Home' ? '' : item.toLowerCase()}`}
-                      className="block py-3 px-6 text-gray-600 hover:text-[var(--primary-green)] hover:bg-[var(--light-green)]/30 transition-colors text-sm"
-                      onClick={() => setIsMenuOpen(false)}
-                    >
-                      {item}
-                    </Link>
-                  </motion.div>
-                ))}
-              </nav>
-            </motion.div>
-          )}
-        </AnimatePresence>
+        {/* Mobile Button */}
+        <motion.button
+          whileTap={{ scale: 0.9 }}
+          aria-label="Menu"
+          className="md:hidden p-2 text-gray-700"
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+        >
+          {isMenuOpen ? <X size={26} /> : <Menu size={26} />}
+        </motion.button>
       </div>
+
+      {/* Mobile Menu fullscreen */}
+      <AnimatePresence>
+        {isMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-white/95 backdrop-blur-lg z-40 flex flex-col items-center justify-center space-y-8"
+          >
+            <button
+              aria-label="Chiudi menu"
+              className="absolute top-6 right-6 text-gray-700"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              <X size={30} />
+            </button>
+            {navLinks.map((item, index) => (
+              <motion.div
+                key={item.label}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1 }}
+              >
+                <Link
+                  href={`/${item.label === "Home" ? "" : item.label.toLowerCase()}`}
+                  className="text-2xl font-semibold text-gray-700 hover:text-[var(--primary-green)] flex items-center gap-2"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  <span>{item.emoji}</span> {item.label}
+                </Link>
+              </motion.div>
+            ))}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.header>
   );
 };

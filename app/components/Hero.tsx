@@ -1,115 +1,122 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { motion } from "framer-motion";
 import Link from "next/link";
-import { ArrowRight, Leaf } from "lucide-react";
+import Image from "next/image";
+import { ArrowRight, Sprout, Leaf } from "lucide-react";
 
 const Hero = () => {
-  const containerRef = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end start"]
-  });
-
-  const y = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
-
   return (
-    <section ref={containerRef} className="relative h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-white to-[var(--light-beige)]">
-      {/* Sfondo con parallax minimale */}
-      <motion.div 
-        className="absolute inset-0 opacity-5"
-        style={{ y }}
-      >
-        <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <pattern id="minimalPattern" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse">
-              <circle cx="20" cy="20" r="1" fill="var(--primary-green)" />
-              <circle cx="60" cy="40" r="1" fill="var(--accent-blue)" />
-              <circle cx="40" cy="70" r="1" fill="var(--primary-green)" />
-            </pattern>
-          </defs>
-          <rect x="0" y="0" width="100%" height="100%" fill="url(#minimalPattern)" />
-        </svg>
-      </motion.div>
+    <section className="relative min-h-screen flex items-center overflow-hidden bg-gradient-to-br from-white via-[var(--light-green)]/20 to-[var(--accent-blue)]/10">
+      {/* Gradient blob sinistro */}
+      <motion.div
+        className="absolute -top-40 -left-40 w-[28rem] h-[28rem] bg-[var(--primary-green)]/20 rounded-full blur-[120px]"
+        animate={{ scale: [1, 1.15, 1] }}
+        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+      />
+      {/* Gradient blob destro */}
+      <motion.div
+        className="absolute -bottom-40 -right-40 w-[32rem] h-[32rem] bg-[var(--accent-blue)]/20 rounded-full blur-[140px]"
+        animate={{ scale: [1.1, 0.9, 1.1] }}
+        transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+      />
 
-      {/* Contenuto principale */}
-      <div className="container-custom text-center z-10 relative px-4">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="mb-8"
-        >
-          <motion.span 
-            className="text-xs font-light text-[var(--primary-green)] tracking-wider"
-            whileHover={{ scale: 1.02 }}
+      <div className="container-custom relative z-10 grid md:grid-cols-2 gap-12 items-center px-6">
+        {/* Colonna testo */}
+        <div className="text-center md:text-left">
+          {/* Tagline */}
+          <motion.span
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="inline-flex items-center space-x-2 text-sm text-[var(--primary-green)] bg-[var(--light-green)]/40 px-4 py-2 rounded-full backdrop-blur-sm"
           >
-            INNOVAZIONE IDROPONICA
+            <Sprout size={16} />
+            <span>INNOVAZIONE IDROPONICA</span>
           </motion.span>
-        </motion.div>
 
-        <motion.h1 
-          className="text-4xl md:text-6xl font-light mb-6 tracking-tight"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          style={{ opacity }}
-        >
-          <span className="text-gray-800">Hydro</span>
-          <span className="text-[var(--primary-green)]">Greens</span>
-          <span className="text-[var(--accent-blue)]">Lab</span>
-        </motion.h1>
-        
-        <motion.p 
-          className="text-lg text-gray-600 mb-10 max-w-2xl mx-auto font-light leading-relaxed"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          style={{ opacity }}
-        >
-          Coltiviamo il futuro con tecnologie idroponiche avanzate. 
-          Sostenibilità ed eccellenza in ogni prodotto.
-        </motion.p>
-        
-        <motion.div 
-          className="flex flex-col sm:flex-row gap-4 justify-center items-center"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-          style={{ opacity }}
-        >
-          <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-            <Link href="/tecnologia" className="bg-[var(--primary-green)] text-white px-8 py-3 rounded-lg text-sm font-light flex items-center justify-center space-x-2 hover:bg-[var(--dark-green)] transition-colors">
-              <span>Scopri la Tecnologia</span>
+          {/* Titolo */}
+          <motion.h1
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.2 }}
+            className="text-5xl md:text-6xl font-extralight mt-6 mb-6 leading-tight tracking-tight"
+          >
+            Cresci il tuo <span className="text-[var(--primary-green)]">benessere</span><br />
+            con i nostri <span className="text-[var(--accent-blue)]">microgreens</span>
+          </motion.h1>
+
+          {/* Descrizione */}
+          <motion.p
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.4 }}
+            className="text-lg md:text-xl text-gray-600 font-light max-w-lg mb-10"
+          >
+            Coltivati con tecniche idroponiche avanzate: più sapore, più nutrienti, più sostenibilità. 
+            Direttamente dalle nostre colture alla tua tavola.
+          </motion.p>
+
+          {/* CTA */}
+          <motion.div
+            className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.6 }}
+          >
+            <Link
+              href="/prodotti"
+              className="px-8 py-4 rounded-lg text-sm font-light bg-[var(--primary-green)] text-white hover:bg-[var(--dark-green)] shadow-lg transition-colors flex items-center justify-center space-x-2"
+            >
+              <span>Scopri i Prodotti</span>
               <ArrowRight size={16} />
             </Link>
-          </motion.div>
-          
-          <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-            <Link href="/prodotti" className="border border-[var(--primary-green)] text-[var(--primary-green)] px-8 py-3 rounded-lg text-sm font-light flex items-center justify-center space-x-2 hover:bg-[var(--light-green)] transition-colors">
-              <span>I Nostri Prodotti</span>
+            <Link
+              href="/missione"
+              className="px-8 py-4 rounded-lg text-sm font-light border border-[var(--primary-green)] text-[var(--primary-green)] hover:bg-[var(--light-green)]/40 backdrop-blur-sm transition-colors flex items-center justify-center space-x-2"
+            >
               <Leaf size={16} />
+              <span>La Nostra Missione</span>
             </Link>
+          </motion.div>
+        </div>
+
+        {/* Colonna immagine con parallax */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1, delay: 0.5 }}
+          className="relative flex justify-center md:justify-end"
+        >
+          <motion.div
+            animate={{ y: [0, -12, 0] }}
+            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+            className="relative w-72 h-72 md:w-96 md:h-96 overflow-hidden"
+          >
+            <Image
+              src="/hero-microgreens.png" // 👉 sostituisci con la tua immagine
+              alt="Microgreens freschi"
+              fill
+              className="object-cover"
+              priority
+            />
           </motion.div>
         </motion.div>
       </div>
-      
-      {/* Indicatore di scroll minimal */}
-      <motion.div 
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20"
+
+      {/* Scroll indicator */}
+      <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 1, delay: 1.2 }}
+        transition={{ delay: 1.2 }}
+        className="absolute bottom-6 left-1/2 -translate-x-1/2 text-[var(--primary-green)] text-sm font-light flex flex-col items-center"
       >
         <motion.div
           animate={{ y: [0, 8, 0] }}
-          transition={{ repeat: Infinity, duration: 2 }}
-          className="flex flex-col items-center"
-        >
-          <div className="w-4 h-4 border-r border-b border-[var(--primary-green)] transform rotate-45"></div>
-        </motion.div>
+          transition={{ duration: 2, repeat: Infinity }}
+          className="w-4 h-4 border-b-2 border-r-2 border-[var(--primary-green)] rotate-45 mb-2"
+        />
+        <span>Scorri</span>
       </motion.div>
     </section>
   );
